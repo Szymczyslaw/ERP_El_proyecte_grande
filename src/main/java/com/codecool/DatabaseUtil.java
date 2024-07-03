@@ -1,15 +1,19 @@
 package com.codecool;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
+import org.postgresql.ds.PGSimpleDataSource;
+
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public class DatabaseUtil {
-    private static final String URL = "jdbc:postgresql://localhost:5432/ERP";
-    private static final String USER = "ERP";
-    private static final String PASSWORD = "grande";
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    public static DataSource connect() throws SQLException {
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        dataSource.setURL("jdbc:postgresql://localhost:5432/");
+        dataSource.setUser("ElProyecteGrande");
+        dataSource.setPassword("ElProyecteGrande");
+        dataSource.setDatabaseName("ElProyecteGrande");
+        dataSource.getConnection().close();
+        return dataSource;
     }
 }
 
