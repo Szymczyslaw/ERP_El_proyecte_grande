@@ -7,15 +7,20 @@ import java.sql.SQLException;
 
 public class SupplierDAO {
 
-    public void addSupplier(int id, String name, String email, int phoneNumber) {
-        String sql = "INSERT INTO Supplier (id, name, email, phone_number) VALUES (?, ?, ?, ?)";
+    public void addSupplier(String name, String email, int phoneNumber) {
+        String sql = "INSERT INTO Supplier (name, email, phone_number) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.setString(2, name);
-            stmt.setString(3, email);
-            stmt.setInt(4, phoneNumber);
+             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setInt(3, phoneNumber);
             stmt.executeUpdate();
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

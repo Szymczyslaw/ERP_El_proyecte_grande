@@ -5,16 +5,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductDAO {
-    public void addProduct(int id, String name, int price, int supplierId, int contractId) {
-        String sql = "INSERT INTO Products (id, name, price, supplier_id, contract_id) VALUES (?, ?, ?, ?, ?)";
+    public void addProduct(String name, int price, int supplierId, int contractId) {
+        String sql = "INSERT INTO Products (name, price, supplier_id, contract_id) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.setString(2, name);
-            stmt.setInt(3, price);
-            stmt.setInt(4, supplierId);
-            stmt.setInt(5, contractId);
+             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, name);
+            stmt.setInt(2, price);
+            stmt.setInt(3, supplierId);
+            stmt.setInt(4, contractId);
             stmt.executeUpdate();
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
