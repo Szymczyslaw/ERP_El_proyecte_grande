@@ -1,13 +1,16 @@
 package com.codecool.customers;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public interface CustomerDao {
-    public void addCustomer(Customer customer);
+    void addCustomer(Customer customer) throws SQLException;
 
-    void deleteCustomer();
+    void deleteCustomer(long customerId) throws SQLException;
 
-    void updateCustomer();
+    void updateCustomer(Customer customer) throws SQLException;
 
-    void getCustomer();
+    Customer getCustomer(long customerId) throws SQLException;
 
-    void getAllCustomers();
+    List<Customer> getAllCustomers() throws SQLException;
 }
