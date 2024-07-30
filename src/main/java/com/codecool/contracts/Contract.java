@@ -1,17 +1,24 @@
 package com.codecool.contracts;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Contract {
-    private long id;
+    @Id
+    private UUID id = UUID.randomUUID();
     private double grossPrice;
     private double netPrice;
-    private long customerId;
+    private UUID customerId;
+    @Version
+    private Integer version;
 }
