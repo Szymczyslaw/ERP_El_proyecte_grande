@@ -39,4 +39,7 @@ public class Customer {
     private final List<Contract> contractList = new ArrayList<>();
     @Version
     private Integer version;
+
+    public Customer(String name, String email, int i, String address, List<Contract> contracts) {
+    }
 }

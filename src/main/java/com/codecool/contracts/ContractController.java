@@ -26,4 +26,11 @@ public class ContractController {
     public ContractDTO getContractById(@PathVariable UUID id) {
         return contractService.getContract(id);
     }
+
+    @GetMapping
+    public ContractRequestDTO addContract(ContractRequestDTO dto) {
+        contractService.addContract(dto);
+        return dto;
+    }
+
 }

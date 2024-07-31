@@ -1,7 +1,9 @@
 package com.codecool.contracts;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -23,16 +25,17 @@ public class ContractService {
                 .toList();
     }
 
-    public void addContract(Contract contract) {
-        contractRepository.save(contract);
-    }
-
     public ContractDTO getContract(UUID id) {
         return contractRepository.findById(id)
                 .map(contractMapper::mapEntityToDTO)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public ContractDTO addContract(@RequestBody @Valid ContractRequestDTO dto) {
+        var newContract = contractMapper.mapDTOTOEntity(dto);
+        var savedContract = contractRepository.save(newContract);
+        return contractMapper.mapEntityToDTO(savedContract);
+    }
     public void updateContract(UUID id, Contract contract) {
         Contract contractFromDB = contractRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Contract {id} not found"));

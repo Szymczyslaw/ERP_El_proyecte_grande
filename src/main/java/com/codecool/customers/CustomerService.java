@@ -1,7 +1,9 @@
 package com.codecool.customers;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -22,15 +24,16 @@ public class CustomerService {
                 .map(customerMapper::mapEntityToDTO)
                 .toList();
     }
-
-    private void addCustomer(Customer customer) {
-        customerRepository.save(customer);
-    }
-
     public CustomerDTO getCustomer(UUID id) {
         return customerRepository.findById(id)
                 .map(customerMapper::mapEntityToDTO)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public CustomerDTO addCustomer(@RequestBody @Valid CustomerRequestDTO dto) {
+        var newCustomer = customerMapper.mapDTOTOEntity(dto);
+        var savedCustomer = customerRepository.save(newCustomer);
+        return customerMapper.mapEntityToDTO(savedCustomer);
     }
 
     public void updateCustomer(UUID id, Customer customer) {
