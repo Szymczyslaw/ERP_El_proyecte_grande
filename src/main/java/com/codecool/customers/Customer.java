@@ -3,6 +3,7 @@ package com.codecool.customers;
 import com.codecool.contracts.Contract;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -34,6 +35,7 @@ public class Customer {
     private int phoneNumber;
     @NotBlank(message = "Address number cannot be empty")
     private String address;
+    @OneToMany
     private final List<Contract> contractList = new ArrayList<>();
     @Version
     private Integer version;

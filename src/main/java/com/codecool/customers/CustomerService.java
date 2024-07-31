@@ -1,37 +1,36 @@
 package com.codecool.customers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.customerRepository = customerRepository;
+        this.customerMapper = customerMapper;
     }
 
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository.findAll().stream()
-                .map(entity -> new CustomerDTO(
-                        entity.getId(),
-                        entity.getName(),
-                        entity.getEmail(),
-                        entity.getPhoneNumber(),
-                        entity.getAddress(),
-                        entity.getContractList()
-                )).toList();
+                .map(customerMapper::mapEntityToDTO)
+                .toList();
     }
 
     private void addCustomer(Customer customer) {
         customerRepository.save(customer);
     }
 
-    public Optional<Customer> getCustomer(UUID id) {
-        return customerRepository.findById(id);
+    public CustomerDTO getCustomer(UUID id) {
+        return customerRepository.findById(id)
+                .map(customerMapper::mapEntityToDTO)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public void updateCustomer(UUID id, Customer customer) {
