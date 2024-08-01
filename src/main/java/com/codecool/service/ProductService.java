@@ -56,11 +56,11 @@ public class ProductService {
     public ProductDTO updateProduct(int id, ProductDTO productDTO) {
         if (productRepository.existsById(id)) {
             Product product = convertToEntity(productDTO);
-            product.setId(id); // Ensure the ID is set correctly
+            product.setId(id);
             Product updatedProduct = productRepository.save(product);
             return convertToDTO(updatedProduct);
         }
-        return null; // Or throw an exception if preferred
+        return null;
     }
 
     public void deleteProduct(int id) {

@@ -6,7 +6,6 @@ public class SupplierDTO {
     private String email;
     private int phoneNumber;
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
