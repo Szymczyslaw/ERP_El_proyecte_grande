@@ -1,9 +1,7 @@
 package com.codecool.contracts;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,8 +25,8 @@ public class ContractController {
         return contractService.getContract(id);
     }
 
-    @GetMapping
-    public ContractRequestDTO addContract(ContractRequestDTO dto) {
+    @PostMapping
+    public ContractRequestDTO addContract(@RequestBody @Valid ContractRequestDTO dto) {
         contractService.addContract(dto);
         return dto;
     }

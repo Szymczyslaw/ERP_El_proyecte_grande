@@ -9,7 +9,7 @@ public record CustomerDTO(
         UUID id,
         String name,
         String email,
-        int phoneNumber,
+        String phoneNumber,
         String address,
         List<Contract> contractList
 ) {

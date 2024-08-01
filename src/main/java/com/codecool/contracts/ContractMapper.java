@@ -10,7 +10,7 @@ public class ContractMapper {
                 entity.getId(),
                 entity.getGrossPrice(),
                 entity.getGrossPrice(),
-                entity.getCustomerId()
+                entity.getCustomer()
         );
     }
 
@@ -18,7 +18,7 @@ public class ContractMapper {
         return new Contract(
                 dto.grossPrice(),
                 dto.netPrice(),
-                dto.customerId()
+                dto.customer()
         );
     }
 }

@@ -4,7 +4,6 @@ import com.codecool.contracts.Contract;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 
@@ -15,10 +14,10 @@ public record CustomerRequestDTO(
         @Email
         @NotBlank(message = "E-mail address cannot be empty")
         String email,
-        @Range(min = 9, max = 11)
+        @Size(min = 9, max = 15, message = "Phone number must be between 9 and 15 characters")
         @NotBlank(message = "Phone number cannot be empty")
-        int phoneNumber,
-        @NotBlank(message = "Address number cannot be empty")
+        String phoneNumber,
+        @NotBlank(message = "Address cannot be empty")
         String address,
         List<Contract> contractList
 ) {

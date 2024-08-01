@@ -1,15 +1,15 @@
 package com.codecool.contracts;
 
-import jakarta.validation.constraints.NotBlank;
-
-import java.util.UUID;
+import com.codecool.customers.Customer;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public record ContractRequestDTO(
-        @NotBlank(message = "Gross price cannot be empty")
+        @Positive(message = "Gross price must be positive")
         double grossPrice,
-        @NotBlank(message = "Net price cannot be empty")
+        @Positive(message = "Net price must be positive")
         double netPrice,
-        @NotBlank(message = "Customer id cannot be empty")
-        UUID customerId
+        @NotNull(message = "Customer cannot be null")
+        Customer customer
 ) {
 }

@@ -1,17 +1,13 @@
 package com.codecool.customers;
 
 import com.codecool.contracts.Contract;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +26,27 @@ public class Customer {
     @Email
     @NotBlank(message = "E-mail address cannot be empty")
     private String email;
-    @Range(min = 9, max = 11)
+    @Size(min = 9, max = 15, message = "Phone number must be between 9 and 15 characters")
     @NotBlank(message = "Phone number cannot be empty")
-    private int phoneNumber;
+    private String phoneNumber;
     @NotBlank(message = "Address number cannot be empty")
     private String address;
-    @OneToMany
-    private final List<Contract> contractList = new ArrayList<>();
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER,
+            mappedBy = "customer"
+    )
+    private List<Contract> contractList;
     @Version
     private Integer version;
 
-    public Customer(String name, String email, int i, String address, List<Contract> contracts) {
+
+    public Customer(String name, String email, String phoneNumber, String address, List<Contract> contracts) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.contractList = contracts != null ? contracts : new ArrayList<>();
     }
 }

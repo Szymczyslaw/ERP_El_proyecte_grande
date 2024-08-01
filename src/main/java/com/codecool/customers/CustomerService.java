@@ -1,9 +1,7 @@
 package com.codecool.customers;
 
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -30,10 +28,15 @@ public class CustomerService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public CustomerDTO addCustomer(@RequestBody @Valid CustomerRequestDTO dto) {
-        var newCustomer = customerMapper.mapDTOTOEntity(dto);
-        var savedCustomer = customerRepository.save(newCustomer);
-        return customerMapper.mapEntityToDTO(savedCustomer);
+    public CustomerDTO addCustomer(CustomerRequestDTO dto) {
+        try {
+            var newCustomer = customerMapper.mapDTOTOEntity(dto);
+            var savedCustomer = customerRepository.save(newCustomer);
+            return customerMapper.mapEntityToDTO(savedCustomer);
+        } catch (Exception e) {
+            // Log the exception or handle it accordingly
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to save customer", e);
+        }
     }
 
     public void updateCustomer(UUID id, Customer customer) {
