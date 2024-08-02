@@ -28,4 +28,8 @@ public class CustomerController {
     public CustomerDTO addCustomer(@Valid @RequestBody CustomerRequestDTO dto) {
         return customerService.addCustomer(dto);
     }
+//    @PutMapping("{/id}")
+//    public CustomerDTO updateConsumer(@PathVariable UUID id, @Valid @RequestBody CustomerRequestDTO dto){
+//        return customerService.updateCustomer(id, dto);
+//    }
 }

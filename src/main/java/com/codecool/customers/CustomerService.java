@@ -39,17 +39,18 @@ public class CustomerService {
         }
     }
 
-    public void updateCustomer(UUID id, Customer customer) {
-        Customer customerFromDB = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Contract {id} not found"));
-
-        customerFromDB.setAddress(customer.getAddress());
-        customerFromDB.setName(customer.getName());
-        customerFromDB.setEmail(customer.getEmail());
-        customerFromDB.setPhoneNumber(customer.getPhoneNumber());
-
-        customerRepository.save(customerFromDB);
-    }
+//    public CustomerDTO updateCustomer(UUID id, CustomerRequestDTO customer) {
+//        Customer customerFromDB = customerRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Contract {id} not found"));
+//
+//        customerFromDB.setAddress(customer.getAddress());
+//        customerFromDB.setName(customer.getName());
+//        customerFromDB.setEmail(customer.getEmail());
+//        customerFromDB.setPhoneNumber(customer.getPhoneNumber());
+//
+//        customerRepository.save(customerFromDB);
+//        return null;
+//    }
 
     public void deleteCustomer(UUID id) {
         customerRepository.deleteById(id);

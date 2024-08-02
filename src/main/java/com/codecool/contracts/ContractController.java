@@ -26,9 +26,8 @@ public class ContractController {
     }
 
     @PostMapping
-    public ContractRequestDTO addContract(@RequestBody @Valid ContractRequestDTO dto) {
-        contractService.addContract(dto);
-        return dto;
+    public ContractDTO addContract(@RequestBody @Valid ContractRequestDTO dto) {
+        return contractService.addContract(dto);
     }
 
 }
