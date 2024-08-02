@@ -1,0 +1,12 @@
+spring:
+  application.name: elProyecteGrande
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ElProyecteGrande
+    username: ElProyecteGrande
+    password: ElProyecteGrande
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+

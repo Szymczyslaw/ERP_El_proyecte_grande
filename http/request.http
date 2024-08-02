@@ -1,0 +1,17 @@
+### CUSTOMERS
+
+GET localhost:8080/api/v1/customers
+
+###
+POST localhost:8080/api/v1/customers
+Content-Type: application/json /
+{
+    "name": "Alicja Nowak",
+    "email": "alicja.nowak@example.com",
+    "phoneNumber": "123456789012",
+    "address": "ul. Ogrodowa 5, 00-987 Warszawa",
+    "contractList": []
+}
+
+###
+GET localhost:8080/api/v1/customers/0187c480-0dce-4cc8-b1f1-836e3174f4b2
