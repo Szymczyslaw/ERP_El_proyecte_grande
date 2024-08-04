@@ -8,7 +8,8 @@ public class CustomerMapper {
     public CustomerDTO mapEntityToDTO(Customer entity) {
         return new CustomerDTO(
                 entity.getId(),
-                entity.getName(),
+                entity.getFirstName(),
+                entity.getLastName(),
                 entity.getEmail(),
                 entity.getPhoneNumber(),
                 entity.getAddress(),
@@ -18,11 +19,13 @@ public class CustomerMapper {
 
     public Customer mapDTOTOEntity(@Valid CustomerRequestDTO dto) {
         return new Customer(
-          dto.name(),
+          dto.firstName(),
+          dto.lastName(),
           dto.email(),
           dto.phoneNumber(),
           dto.address(),
           dto.contractList()
         );
     }
+
 }

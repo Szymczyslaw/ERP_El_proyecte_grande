@@ -7,7 +7,8 @@ import java.util.UUID;
 
 public record CustomerDTO(
         UUID id,
-        String name,
+        String firstName,
+        String lastName,
         String email,
         String phoneNumber,
         String address,

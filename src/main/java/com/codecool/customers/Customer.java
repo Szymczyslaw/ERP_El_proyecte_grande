@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,14 +17,20 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Customer {
     @Id
+    @EqualsAndHashCode.Include
     private UUID id = UUID.randomUUID();
-    @Size(min = 5, max = 50, message = "Name must be between 5 and 50 characters")
-    @NotBlank(message = "Name cannot be empty")
-    private String name;
-    @Email
+    @Size(min = 3, max = 20, message = "Name must be between 5 and 50 characters")
+    @NotBlank(message = "First name cannot be empty")
+    private String firstName;
+    @Size(min = 3, max = 20, message = "Name must be between 5 and 50 characters")
+    @NotBlank(message = "Last name cannot be empty")
+    private String lastName;
+    @Email(message = "Incorrect e-mail address")
+//    @Column(unique = true)
     @NotBlank(message = "E-mail address cannot be empty")
     private String email;
     @Size(min = 9, max = 15, message = "Phone number must be between 9 and 15 characters")
@@ -42,11 +49,19 @@ public class Customer {
     private Integer version;
 
 
-    public Customer(String name, String email, String phoneNumber, String address, List<Contract> contracts) {
-        this.name = name;
+    public Customer(String firstName, String lastName,String email, String phoneNumber, String address, List<Contract> contracts) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.contractList = contracts != null ? contracts : new ArrayList<>();
+    }
+
+    public String getFullName(){
+        return getFirstName() + " " + getLastName();
+    }
+    public void addContract(Contract contract){
+        contractList.add(contract);
     }
 }

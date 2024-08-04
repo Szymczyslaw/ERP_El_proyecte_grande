@@ -34,23 +34,23 @@ public class CustomerService {
             var savedCustomer = customerRepository.save(newCustomer);
             return customerMapper.mapEntityToDTO(savedCustomer);
         } catch (Exception e) {
-            // Log the exception or handle it accordingly
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to save customer", e);
         }
     }
 
-//    public CustomerDTO updateCustomer(UUID id, CustomerRequestDTO customer) {
-//        Customer customerFromDB = customerRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Contract {id} not found"));
-//
-//        customerFromDB.setAddress(customer.getAddress());
-//        customerFromDB.setName(customer.getName());
-//        customerFromDB.setEmail(customer.getEmail());
-//        customerFromDB.setPhoneNumber(customer.getPhoneNumber());
-//
-//        customerRepository.save(customerFromDB);
-//        return null;
-//    }
+    public CustomerDTO updateCustomer(UUID id, CustomerRequestDTO dto) {
+        Customer customerFromDB = customerRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        customerFromDB.setAddress(dto.address());
+        customerFromDB.setFirstName(dto.firstName());
+        customerFromDB.setLastName(dto.lastName());
+        customerFromDB.setEmail(dto.email());
+        customerFromDB.setPhoneNumber(dto.phoneNumber());
+
+        Customer updatedCustomer = customerRepository.save(customerFromDB);
+        return customerMapper.mapEntityToDTO(updatedCustomer);
+    }
 
     public void deleteCustomer(UUID id) {
         customerRepository.deleteById(id);

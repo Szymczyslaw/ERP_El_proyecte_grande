@@ -8,10 +8,14 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 public record CustomerRequestDTO(
-        @Size(min = 5, max = 50, message = "Name must be between 5 and 50 characters")
+        @Size(min = 3, max = 20, message = "Name must be between 5 and 50 characters")
         @NotBlank(message = "Name cannot be empty")
-        String name,
-        @Email
+        String firstName,
+        @Size(min = 3, max = 20, message = "Name must be between 5 and 50 characters")
+        @NotBlank(message = "Name cannot be empty")
+        String lastName,
+        @Email(message = "Incorrect e-mail address")
+//        @Column(unique = true)
         @NotBlank(message = "E-mail address cannot be empty")
         String email,
         @Size(min = 9, max = 15, message = "Phone number must be between 9 and 15 characters")
@@ -21,4 +25,5 @@ public record CustomerRequestDTO(
         String address,
         List<Contract> contractList
 ) {
+
 }

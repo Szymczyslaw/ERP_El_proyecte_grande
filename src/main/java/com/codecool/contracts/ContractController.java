@@ -1,5 +1,6 @@
 package com.codecool.contracts;
 
+import com.codecool.customers.CustomerDTO;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +30,12 @@ public class ContractController {
     public ContractDTO addContract(@RequestBody @Valid ContractRequestDTO dto) {
         return contractService.addContract(dto);
     }
-
+    @PutMapping("/{id}")
+    public CustomerDTO updateContract(@PathVariable UUID id, @Valid @RequestBody ContractRequestDTO dto){
+        return contractService.updateContract(id, dto);
+    }
+    @PutMapping("/{contractId}/customers/{customerId}")
+    public void assignContractToUser(@PathVariable UUID contractId, @PathVariable UUID customerId){
+        contractService.assignContractToDeveloper(contractId, customerId);
+    }
 }

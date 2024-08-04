@@ -17,8 +17,7 @@ public class ContractMapper {
     public Contract mapDTOTOEntity(@Valid ContractRequestDTO dto) {
         return new Contract(
                 dto.grossPrice(),
-                dto.netPrice(),
-                dto.customer()
+                dto.netPrice()
         );
     }
 }
