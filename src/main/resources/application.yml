@@ -1,0 +1,12 @@
+spring:
+  application.name: ElProyecteGrandeApplication
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ERP
+    username: ERP
+    password: Szymonos03
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database: postgresql
