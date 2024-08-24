@@ -1,11 +1,10 @@
-package com.codecool.controller;
+package com.codecool.products;
 
-import com.codecool.dto.ProductDTO;
-import com.codecool.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/products")
@@ -20,22 +19,22 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductDTO getProductById(@PathVariable int id) {
+    public ProductDTO getProductById(@PathVariable UUID id) {
         return productService.getProductById(id);
     }
 
     @PostMapping
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
+    public ProductDTO createProduct(@RequestBody ProductRequestDTO productDTO) {
         return productService.createProduct(productDTO);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO updateProduct(@PathVariable int id, @RequestBody ProductDTO productDTO) {
+    public ProductDTO updateProduct(@PathVariable UUID id, @RequestBody ProductRequestDTO productDTO) {
         return productService.updateProduct(id, productDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable int id) {
+    public void deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
     }
 }
